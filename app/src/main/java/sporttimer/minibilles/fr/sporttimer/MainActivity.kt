@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
      */
 
     /** List of timers */
-    private val timers: MutableList<TimerDescription> = ArrayList()
+    val timers: MutableList<TimerDescription> = ArrayList()
 
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a TimerFragment (defined as a static inner class below).
-            return TimerFragment.newInstance(timers[position], position + 1)
+            return TimerFragment.newInstance(position)
         }
 
         override fun getCount(): Int {
