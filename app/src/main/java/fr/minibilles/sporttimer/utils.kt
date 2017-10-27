@@ -31,6 +31,22 @@ fun JSONArray.toIntArrayList(): ArrayList<Int> {
     return result
 }
 
+private val intEnding = Regex("^.*([0-9]+)$")
+
+fun newTimerName(timers: List<TimerDescription>): String {
+    var higher = 0
+    timers.forEach {
+        val matchResult = intEnding.matchEntire(it.name)
+        if (matchResult != null) {
+            val current = matchResult.groups[1]?.value?.toInt()
+            if (current != null && current > higher) {
+                higher = current
+            }
+        }
+    }
+    return "Timer ${higher + 1}"
+}
+
 val defaultTimersJson =
 """[
   { "name": "Timer 1", "durations": [30, 30] },

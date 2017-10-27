@@ -1,20 +1,17 @@
 package fr.minibilles.sporttimer
 
 import android.content.Context
+import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 import org.json.JSONTokener
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,10 +52,27 @@ class MainActivity : AppCompatActivity() {
         // Set up the ViewPager with the sections adapter.
         container.adapter = mSectionsPagerAdapter
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        val deleteButton = delete
+
+        add.setOnClickListener {
+            val newTimer = TimerDescription(newTimerName(timers))
+            timers.add(newTimer)
+            container.adapter = mSectionsPagerAdapter
+            container.currentItem = timers.size - 1
+            deleteButton.isEnabled = timers.size > 1
+
+            Snackbar.make(it, "Added '${newTimer.name}'", Snackbar.LENGTH_LONG).show()
         }
+
+        delete.setOnClickListener {
+            val removedTimer = timers[container.currentItem]
+            timers.removeAt(container.currentItem)
+            container.adapter = mSectionsPagerAdapter
+
+            deleteButton.isEnabled = timers.size > 1
+            Snackbar.make(it, "Deleted '${removedTimer.name}'", Snackbar.LENGTH_LONG).show()
+        }
+        delete.isEnabled = timers.size > 1
 
     }
 
@@ -86,7 +100,7 @@ class MainActivity : AppCompatActivity() {
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    inner class SectionsPagerAdapter(fm: FragmentManager, val timers: List<TimerDescription>) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: FragmentManager, private val timers: List<TimerDescription>) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.

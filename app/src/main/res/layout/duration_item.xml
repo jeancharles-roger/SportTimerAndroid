@@ -38,7 +38,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:max="300"
-        android:progress="5"
+        android:progress="30"
         app:layout_constraintEnd_toStartOf="@+id/delete"
         app:layout_constraintStart_toEndOf="@+id/duration"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,5 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/duration_seek"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        app:srcCompat="@android:drawable/btn_dialog"
+        android:contentDescription="@string/delete_duration" />
 </android.support.constraint.ConstraintLayout>
