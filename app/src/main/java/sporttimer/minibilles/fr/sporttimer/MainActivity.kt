@@ -1,5 +1,6 @@
 package sporttimer.minibilles.fr.sporttimer
 
+import android.content.Context
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 
@@ -11,6 +12,8 @@ import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONArray
+import org.json.JSONTokener
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
@@ -31,14 +34,20 @@ class MainActivity : AppCompatActivity() {
     // primary sections of the activity.
     private val mSectionsPagerAdapter: SectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, timers)
 
-    init {
-        timers.add(TimerDescription("Timer 1"))
-        timers.add(TimerDescription("Timer 2"))
-        timers.add(TimerDescription("Timer 3"))
+    private fun reloadTimers() {
+        val preferences = getPreferences(Context.MODE_PRIVATE)
+        val timersJson = preferences.getString("timers", defaultTimersJson)
+        val timersArray = JSONTokener(timersJson).nextValue() as JSONArray
+        (0 until timersArray.length()).mapTo(timers) {
+            TimerDescription.read(timersArray.getJSONObject(it))
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        reloadTimers()
+
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
