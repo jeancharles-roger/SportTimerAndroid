@@ -1,4 +1,4 @@
-package sporttimer.minibilles.fr.sporttimer
+package fr.minibilles.sporttimer
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("sporttimer.minibilles.fr.sporttimer", appContext.packageName)
+        assertEquals("fr.minibilles.sporttimer", appContext.packageName)
     }
 }

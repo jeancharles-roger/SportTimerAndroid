@@ -1,4 +1,4 @@
-package sporttimer.minibilles.fr.sporttimer
+package fr.minibilles.sporttimer
 
 import android.widget.SeekBar
 import org.json.JSONArray

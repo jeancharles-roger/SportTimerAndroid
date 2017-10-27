@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="sporttimer.minibilles.fr.sporttimer.MainActivity">
+    tools:context="fr.minibilles.sporttimer.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

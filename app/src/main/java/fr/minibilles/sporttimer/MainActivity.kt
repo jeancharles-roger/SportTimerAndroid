@@ -1,4 +1,4 @@
-package sporttimer.minibilles.fr.sporttimer
+package fr.minibilles.sporttimer
 
 import android.content.Context
 import android.support.design.widget.Snackbar
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
      * A [FragmentPagerAdapter] that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    inner class SectionsPagerAdapter(val fm: FragmentManager, val timers: List<TimerDescription>) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: FragmentManager, val timers: List<TimerDescription>) : FragmentPagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.

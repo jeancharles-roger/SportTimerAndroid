@@ -1,8 +1,7 @@
-package sporttimer.minibilles.fr.sporttimer
+package fr.minibilles.sporttimer
 
 import org.json.JSONObject
 import org.json.JSONStringer
-import org.json.JSONTokener
 
 data class TimerDescription(
         var name: String = "New timer",
