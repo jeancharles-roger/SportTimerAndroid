@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
-
-import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.duration_item.view.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 /**
  * A placeholder fragment containing a simple view.
@@ -56,6 +55,11 @@ class TimerFragment : Fragment() {
             durationView.duration_seek.progress = durations[position]
             durationView.duration_seek.onchange { seekBar: SeekBar?, progress: Int, fromUser: Boolean ->
                 if (fromUser) updateDuration(position, progress, durationView)
+            }
+
+            durationView.delete.setOnClickListener {
+                durations.removeAt(position)
+                notifyDataSetInvalidated()
             }
 
             return durationView

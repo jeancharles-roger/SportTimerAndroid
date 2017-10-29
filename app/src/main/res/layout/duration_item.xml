@@ -49,9 +49,10 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/delete_duration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/duration_seek"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:contentDescription="@string/delete_duration" />
+        app:srcCompat="@android:drawable/ic_menu_delete" />
 </android.support.constraint.ConstraintLayout>
