@@ -31,6 +31,7 @@ class TimerFragment : Fragment() {
         rootView.add_duration.setOnClickListener {
             timer.durations.add(30)
             durationAdapter.notifyDataSetInvalidated()
+            (context as MainActivity).notifyTimersChanged()
         }
         // TODO Localized string
         // getString(R.string.section_format, arguments.getInt(ARG_TIMER_ID))
@@ -65,6 +66,7 @@ class TimerFragment : Fragment() {
             durationView.delete.setOnClickListener {
                 durations.removeAt(position)
                 notifyDataSetInvalidated()
+                (context as MainActivity).notifyTimersChanged()
             }
 
             return durationView
@@ -75,6 +77,7 @@ class TimerFragment : Fragment() {
             val text = "$newValue"
             durationView.duration.text = text
             durationView.current_time.text = text
+            (context as MainActivity).notifyTimersChanged()
         }
     }
 }

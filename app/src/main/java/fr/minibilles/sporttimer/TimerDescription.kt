@@ -1,7 +1,7 @@
 package fr.minibilles.sporttimer
 
+import org.json.JSONArray
 import org.json.JSONObject
-import org.json.JSONStringer
 
 data class TimerDescription(
         var name: String = "New timer",
@@ -10,22 +10,14 @@ data class TimerDescription(
         var time: Int = 0,
         var count: Int = 0
 ) {
-    val json: String
+    val json: JSONObject
         get() {
-            val b = JSONStringer()
-            b.`object`()
-            b.key("name"); b.value(name)
-
-            b.key("durations")
-            b.array()
-            durations.forEach { b.value(it) }
-            b.endArray()
-
-            b.key("time"); b.value(time)
-            b.key("count"); b.value(count)
-
-            b.endObject()
-            return b.toString()
+            val result = JSONObject()
+            result.put("name", name)
+            result.put("durations", JSONArray(durations))
+            result.put("time",time)
+            result.put("count",count)
+            return result
         }
 
     companion object {

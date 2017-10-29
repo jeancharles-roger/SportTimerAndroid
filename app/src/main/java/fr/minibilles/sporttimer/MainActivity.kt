@@ -40,6 +40,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun saveTimers() {
+        val preferences = getPreferences(Context.MODE_PRIVATE)
+
+        val timersArray = JSONArray(timers.map { it.json })
+        val editor = preferences.edit()
+        editor.putString("timers", timersArray.toString())
+        editor.apply()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             deleteButton.isEnabled = timers.size > 1
 
             Snackbar.make(it, "Added '${newTimer.name}'", Snackbar.LENGTH_LONG).show()
+            notifyTimersChanged()
         }
 
         delete.setOnClickListener {
@@ -71,9 +81,14 @@ class MainActivity : AppCompatActivity() {
 
             deleteButton.isEnabled = timers.size > 1
             Snackbar.make(it, "Deleted '${removedTimer.name}'", Snackbar.LENGTH_LONG).show()
+            notifyTimersChanged()
         }
         delete.isEnabled = timers.size > 1
+    }
 
+    fun notifyTimersChanged() {
+        // Saves timer each time, may change to a later save
+        saveTimers()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
