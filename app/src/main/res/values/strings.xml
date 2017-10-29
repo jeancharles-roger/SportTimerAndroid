@@ -2,4 +2,5 @@
     <string name="app_name">Sport Timer</string>
     <string name="action_settings">Settings</string>
     <string name="delete_duration">Delete duration</string>
+    <string name="add_duration">Add duration</string>
 </resources>

@@ -25,8 +25,13 @@ class TimerFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)
         rootView.timer_name.text = timer.name
 
-        rootView.timers.adapter = DurationAdapter(context, timer.durations)
+        val durationAdapter = DurationAdapter(context, timer.durations)
+        rootView.timers.adapter = durationAdapter
 
+        rootView.add_duration.setOnClickListener {
+            timer.durations.add(30)
+            durationAdapter.notifyDataSetInvalidated()
+        }
         // TODO Localized string
         // getString(R.string.section_format, arguments.getInt(ARG_TIMER_ID))
         return rootView
