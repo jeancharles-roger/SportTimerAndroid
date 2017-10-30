@@ -72,11 +72,9 @@ class TimerFragment : Fragment() {
             return durationView
         }
 
-        fun updateDuration(index: Int, newValue: Int, durationView: View) {
+        private fun updateDuration(index: Int, newValue: Int, durationView: View) {
             durations[index] = newValue
-            // TODO adds format
-            val text = "$newValue s"
-            durationView.duration.text = text
+            durationView.duration.text = formatDuration(newValue)
             (context as MainActivity).notifyTimersChanged()
         }
     }
