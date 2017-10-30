@@ -2,12 +2,12 @@ package fr.minibilles.sporttimer
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 import org.json.JSONTokener
@@ -59,35 +59,29 @@ class MainActivity : AppCompatActivity() {
 
         // Set up the ViewPager with the sections adapter.
         container.adapter = mSectionsPagerAdapter
-
-        val deleteButton = delete
-
-        add.setOnClickListener {
-            val newTimer = TimerDescription(newTimerName(timers))
-            timers.add(newTimer)
-            container.adapter = mSectionsPagerAdapter
-            container.currentItem = timers.size - 1
-            deleteButton.isEnabled = timers.size > 1
-
-            Snackbar.make(it, "Added '${newTimer.name}'", Snackbar.LENGTH_LONG).show()
-            notifyTimersChanged()
-        }
-
-        delete.setOnClickListener {
-            val removedTimer = timers[container.currentItem]
-            timers.removeAt(container.currentItem)
-            container.adapter = mSectionsPagerAdapter
-
-            deleteButton.isEnabled = timers.size > 1
-            Snackbar.make(it, "Deleted '${removedTimer.name}'", Snackbar.LENGTH_LONG).show()
-            notifyTimersChanged()
-        }
-        delete.isEnabled = timers.size > 1
     }
 
     fun notifyTimersChanged() {
         // Saves timer each time, may change to a later save
         saveTimers()
+    }
+
+    fun addTimer() {
+        val newTimer = TimerDescription(newTimerName(timers))
+        timers.add(newTimer)
+        container.adapter = mSectionsPagerAdapter
+        container.currentItem = timers.size - 1
+
+        notifyTimersChanged()
+    }
+
+    fun deleteTimer() {
+        if (timers.size > 1) {
+            timers.removeAt(container.currentItem)
+            container.adapter = mSectionsPagerAdapter
+
+            notifyTimersChanged()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -96,20 +90,23 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    /*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.add_timer) {
+            addTimer()
+            return true
+        }
+        if (id == R.id.delete_timer) {
+            deleteTimer()
             return true
         }
 
         return super.onOptionsItemSelected(item)
     }
-    */
 
 
     /**
