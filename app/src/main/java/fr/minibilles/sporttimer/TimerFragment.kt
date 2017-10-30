@@ -74,9 +74,9 @@ class TimerFragment : Fragment() {
 
         fun updateDuration(index: Int, newValue: Int, durationView: View) {
             durations[index] = newValue
-            val text = "$newValue"
+            // TODO adds format
+            val text = "$newValue s"
             durationView.duration.text = text
-            durationView.current_time.text = text
             (context as MainActivity).notifyTimersChanged()
         }
     }
