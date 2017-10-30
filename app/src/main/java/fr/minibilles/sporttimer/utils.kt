@@ -4,12 +4,11 @@ import android.widget.SeekBar
 import org.json.JSONArray
 
 /** Formats duration */
-fun formatDuration(duration: Int): String =
-    when (duration) {
-        in 0..59 -> "$duration s"
-        else -> "${duration/60}m ${duration%60}s"
-    }
-
+fun formatDuration(duration: Int): String {
+    val seconds = duration % 60
+    val secondsString = if (seconds < 10) "0$seconds" else seconds.toString()
+    return "${duration / 60}m ${secondsString}s"
+}
 
 /**
  * Shortcut to register a callback for a [SeekBar]
