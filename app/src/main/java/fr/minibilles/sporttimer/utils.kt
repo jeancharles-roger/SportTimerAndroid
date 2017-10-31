@@ -3,11 +3,23 @@ package fr.minibilles.sporttimer
 import android.widget.SeekBar
 import org.json.JSONArray
 
+private fun twoDigits(value: Int): String {
+    return twoDigits(value.toLong())
+}
+
+private fun twoDigits(value: Long): String {
+    return if (value < 10) "0$value" else value.toString()
+}
+
+
 /** Formats duration */
-fun formatDuration(duration: Int): String {
-    val seconds = duration % 60
-    val secondsString = if (seconds < 10) "0$seconds" else seconds.toString()
-    return "${duration / 60}m ${secondsString}s"
+fun formatDuration(duration: Int): String = "${duration / 60}m ${twoDigits(duration % 60)}s"
+
+/** Formats duration */
+fun formatMillisecond(milliseconds: Long): String {
+    val ms = milliseconds % 1000
+    val seconds = milliseconds / 1000
+    return "${seconds/60}m ${twoDigits(seconds%60)}.${twoDigits(ms)}s"
 }
 
 /**

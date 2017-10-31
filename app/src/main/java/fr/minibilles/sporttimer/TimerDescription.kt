@@ -7,7 +7,7 @@ data class TimerDescription(
         var name: String = "New timer",
         var durations: MutableList<Int> = arrayListOf(30, 30),
 
-        var time: Int = 0,
+        var current: Int = 0,
         var count: Int = 0
 ) {
     val json: JSONObject
@@ -15,7 +15,7 @@ data class TimerDescription(
             val result = JSONObject()
             result.put("name", name)
             result.put("durations", JSONArray(durations))
-            result.put("time",time)
+            result.put("current",current)
             result.put("count",count)
             return result
         }
@@ -24,10 +24,13 @@ data class TimerDescription(
         fun read(json: JSONObject): TimerDescription {
             return TimerDescription(
                     name = json.getString("name"),
-                    time = json.optInt("time", 0),
+                    current = json.optInt("current", 0),
                     count = json.optInt("count", 0),
                     durations = json.getJSONArray("durations").toIntArrayList()
                 )
         }
     }
+
+    val currentDuration: Int
+        get() = durations[current]
 }
