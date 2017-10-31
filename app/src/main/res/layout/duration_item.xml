@@ -7,39 +7,57 @@
 
     <TextView
         android:id="@+id/duration"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toStartOf="@+id/duration_seek"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete"
+        app:layout_constraintStart_toEndOf="@+id/status"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp" />
+        android:gravity="end" />
 
     <SeekBar
         android:id="@+id/duration_seek"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:max="300"
         android:progress="30"
-        app:layout_constraintEnd_toStartOf="@+id/delete"
-        app:layout_constraintStart_toEndOf="@+id/duration"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duration" />
 
     <ImageButton
         android:id="@+id/delete"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/delete_duration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/duration_seek"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:layout_marginRight="16dp" />
+
+    <ImageView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/duration_status"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/presence_invisible"
+        android:layout_marginLeft="16dp" />
+
 </android.support.constraint.ConstraintLayout>

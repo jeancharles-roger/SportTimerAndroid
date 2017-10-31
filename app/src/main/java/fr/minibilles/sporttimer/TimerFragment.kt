@@ -17,14 +17,60 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
  */
 class TimerFragment : Fragment() {
 
+    val safeView: View
+        get() = (view as View)
 
     val timer: TimerDescription
         get() = (context as MainActivity).timers[arguments.getInt(ARG_TIMER_ID)]
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        // Find the timer
+        val rootView = inflater.inflate(R.layout.fragment_main, container, false)
+        rootView.timer_name.text = timer.name
+
+        val durationAdapter = DurationAdapter(context)
+        rootView.timers.adapter = durationAdapter
+        rootView.time_view.text = "0"
+
+        rootView.add_duration.setOnClickListener {
+            timer.durations.add(30)
+            durationAdapter.notifyDataSetInvalidated()
+            (context as MainActivity).notifyTimersChanged()
+        }
+
+        rootView.start_button.setOnClickListener {
+            startTimer()
+        }
+
+        rootView.stop_button.setOnClickListener {
+            stopTimer()
+            safeView.time_view.text = formatDuration(timer.durations[0])
+        }
+
+        // TODO Localized string
+        // getString(R.string.section_format, arguments.getInt(ARG_TIMER_ID))
+        return rootView
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopTimer()
+
+    }
+
     inner class DurationTimer(duration: Int): CountDownTimer(duration*1000L, 100) {
         override fun onFinish() {
+            val previousStatus = safeView.timers.getChildAt(timer.current).status
+            previousStatus.setImageResource(android.R.drawable.presence_invisible)
+
             timer.current = if (timer.current == timer.durations.size - 1) 0 else (timer.current+1)
-            (view as View).time_view.text = "${timer.currentDuration}"
+
+            val status = safeView.timers.getChildAt(timer.current).status
+            status.setImageResource(android.R.drawable.presence_online)
+
+            safeView.time_view.text = "${timer.currentDuration}"
 
             currentDurationTimer = DurationTimer(timer.currentDuration)
             currentDurationTimer?.start()
@@ -43,6 +89,10 @@ class TimerFragment : Fragment() {
             timer.current = 0
             currentDurationTimer = DurationTimer(timer.currentDuration)
             currentDurationTimer?.start()
+
+            val status = safeView.timers.getChildAt(timer.current).status
+            status.setImageResource(android.R.drawable.presence_online)
+
         }
     }
 
@@ -51,45 +101,13 @@ class TimerFragment : Fragment() {
             currentDurationTimer?.cancel()
             currentDurationTimer = null
             timer.current = 0
+
+            for (i in 0 until safeView.timers.childCount) {
+                val status = safeView.timers.getChildAt(i).status
+                status.setImageResource(android.R.drawable.presence_invisible)
+            }
+
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Find the timer
-
-        val rootView = inflater.inflate(R.layout.fragment_main, container, false)
-        rootView.timer_name.text = timer.name
-
-        val durationAdapter = DurationAdapter(context, timer.durations)
-        rootView.timers.adapter = durationAdapter
-        rootView.time_view.text = "0"
-
-        rootView.add_duration.setOnClickListener {
-            timer.durations.add(30)
-            durationAdapter.notifyDataSetInvalidated()
-            (context as MainActivity).notifyTimersChanged()
-        }
-
-        rootView.start_button.setOnClickListener {
-            startTimer()
-        }
-
-        rootView.stop_button.setOnClickListener {
-            stopTimer()
-            (view as View).time_view.text = formatDuration(timer.durations[0])
-        }
-
-        // TODO Localized string
-        // getString(R.string.section_format, arguments.getInt(ARG_TIMER_ID))
-        return rootView
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        stopTimer()
-
     }
 
     companion object {
@@ -105,20 +123,20 @@ class TimerFragment : Fragment() {
         }
     }
 
-    inner class DurationAdapter(context: Context, val durations: MutableList<Int>):
-        ArrayAdapter<Int>(context, R.layout.duration_item, durations) {
+    inner class DurationAdapter(context: Context):
+        ArrayAdapter<Int>(context, R.layout.duration_item, timer.durations) {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val durationView = inflater.inflate(R.layout.duration_item, parent, false)
-            updateDuration(position, durations[position], durationView)
-            durationView.duration_seek.progress = durations[position]
+            updateDuration(position, timer.durations[position], durationView)
+            durationView.duration_seek.progress = timer.durations[position]
             durationView.duration_seek.onchange { _: SeekBar?, progress: Int, fromUser: Boolean ->
                 if (fromUser) updateDuration(position, progress, durationView)
             }
 
             durationView.delete.setOnClickListener {
-                durations.removeAt(position)
+                timer.durations.removeAt(position)
                 notifyDataSetInvalidated()
                 (context as MainActivity).notifyTimersChanged()
             }
@@ -127,7 +145,7 @@ class TimerFragment : Fragment() {
         }
 
         private fun updateDuration(index: Int, newValue: Int, durationView: View) {
-            durations[index] = newValue
+            timer.durations[index] = newValue
             durationView.duration.text = formatDuration(newValue)
             (context as MainActivity).notifyTimersChanged()
         }

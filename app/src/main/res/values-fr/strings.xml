@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Minuteur de sport</string>
+    <string name="add_timer">Ajouter un minuteur</string>
+    <string name="delete_timer">Supprimer un minuteur</string>
+    <string name="delete_duration">Supprimer une durée</string>
+    <string name="add_duration">Ajouter une durée</string>
+    <string name="duration_status">Status de la durée</string>
+</resources>
