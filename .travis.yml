@@ -9,8 +9,6 @@ android:
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-before_install:
-  - $ANDROID_HOME/tools/bin/sdkmanager --licenses
 cache:
   directories:
     - $HOME/.gradle/caches/
