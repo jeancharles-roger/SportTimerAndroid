@@ -2,8 +2,8 @@ language: android
 jdk: oraclejdk8
 android:
   components:
-    - platform-tools
-    - tools
+    - platform-tools-26.0.2
+    - tools-26.1.1
     - build-tools-26.0.2
     - android 26
 before_cache:
