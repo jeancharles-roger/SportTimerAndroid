@@ -1,23 +1,26 @@
 language: android
 sudo: false
 jdk: oraclejdk8
-
 android:
   components:
-    - tools
-    - build-tools-26.0.2
-    - android-26
-
+  - tools
+  - build-tools-26.0.2
+  - android-26
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 notifications:
-    slack: minibilles:2dXpzGnWFnhbU9WrAEwIPn7g
-
-script: ./gradlew assemble
+  slack: minibilles:2dXpzGnWFnhbU9WrAEwIPn7g
+script: "./gradlew assemble"
+deploy:
+  provider: releases
+  api_key:
+    secure: Gpr6dOnRM4tjV7x1o7IiQLVtaBj2o2dqmrkvro/0gg3N1MdD9jPfbUwyOJc9R2j0s3r1AcaxdUBLM+iVunJJC4ev5uN4LDbjQpf7wct9eVZrTsOGzPrlUR+idm68J3ZkvTaIdnW5GipgQqd5nvb362u3XqKhrIIGoohkwk2EVSIEgYO+bfirSLawgUDykTGm4RCdFlKTxLpt7NdwpOGCrPQl0+gyPnBEjan9peO7JHY960XfZ+WsOfM/FG1yr3FZp8rpbyhFVIyoYaH/Dcut3Fwv8P+lp4l3QyGSsGtUi6xwpluBVKMp7EwvvGEgJfi8NxNB9MbMOLj13BT4HLesvidRnjtpJTYLF69EvDQSvUV42MiSi8iSpFG3YS0616Nyla6VkHCUJ1uK0kGAj/2MrxB32svJz8kDyXNN2vDvHlUXdJFai9LFY7eu9T9y+sGow7i2E0Zm29peMTiMEuOdL+TtpkEdDiZNMgmol90MzzkkGHT9BotWT2+Z5e2DK4OnF9KHo5vBJA/RqeKt8d1JneBo35uEm3PkVEmOAPi4Ojpw17MwUzsHAxT0N5IzOmprl2lVw90AJ8+W8VLoHfNag1O2bPBXoHVtU0OVb0SS/CrlhSYpIvVoLGhJYFQ+3vgc9340EvQfYFgN3560g1ORKXOUzI9onZkr/wzN8iMYS3Y=
+  file: app/build/outputs/apk/release/app-release.apk
+  on:
+    repo: jeancharles-roger/SportTimerAndroid
+    tags: true
