@@ -7,9 +7,9 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         release {
-            storeFile file("release.keystore")
+            storeFile file("release.jks")
             storePassword System.getenv("STORE_PASSWORD")
-            keyAlias "main"
+            keyAlias "mykey"
             keyPassword System.getenv("MAIN_PASSWORD")
         }
     }
