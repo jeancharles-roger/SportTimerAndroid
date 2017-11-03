@@ -1,7 +1,19 @@
 # SportTimerAndroid
-SportTimer Android Application
 
+[![Build Status](https://travis-ci.org/jeancharles-roger/SportTimerAndroid.svg?branch=Alpha)](https://travis-ci.org/jeancharles-roger/SportTimerAndroid)
 
+SportTimer is an Android Application that allows to construct timers for a sport routines.
+
+This application is open source under the MIT license.
+
+## Donwload
+
+The application isn´t accessible from the PlayStore. You can download it from the GitHub [Release page](https://github.com/jeancharles-roger/SportTimerAndroid/releases).
+
+## Security concerns
+
+Each release is constructed using [Travis-ci](https://travis-ci.org) and automatically deployed to GitHub release without
+any human intervention. It ensures that no malicious code is added during the build process. Directly from the source to your phone :).
 
 ## Icon
 
