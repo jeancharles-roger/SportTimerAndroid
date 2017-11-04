@@ -46,7 +46,9 @@ class TimerFragment : Fragment() {
 
         rootView.stop_button.setOnClickListener {
             stopTimer()
-            safeView.time_view.text = formatDuration(timer.durations[0])
+            if (timer.durations.size > 0) {
+                safeView.time_view.text = formatDuration(timer.durations[0])
+            }
         }
 
         // TODO Localized string
@@ -85,7 +87,7 @@ class TimerFragment : Fragment() {
     var currentDurationTimer : DurationTimer? = null
 
     private fun startTimer() {
-        if (currentDurationTimer == null) {
+        if (currentDurationTimer == null && timer.durations.size > 0) {
             timer.current = 0
             currentDurationTimer = DurationTimer(timer.currentDuration)
             currentDurationTimer?.start()
