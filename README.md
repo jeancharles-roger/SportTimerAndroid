@@ -24,7 +24,10 @@ You can check the builds for each release [here](https://travis-ci.org/jeancharl
 
 ## Icon
 
-The icon is generated from [AndroidAssetStudio](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=clipart&foreground.clipart=access_alarm&foreground.space.trim=1&foreground.space.pad=0.15&foreColor=rgb(0%2C%200%2C%200)&backColor=rgb(63%2C%2081%2C%20181)&crop=0&backgroundShape=circle&effects=none&name=ic_launcher).
+The icon are generated from AndroidAssetStudio:
+- [Square](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=clipart&foreground.clipart=access_alarm&foreground.space.trim=1&foreground.space.pad=0.4&foreColor=rgb(0%2C%200%2C%200)&backColor=rgb(63%2C%2081%2C%20181)&crop=0&backgroundShape=square&effects=shadow&name=ic_launcher).
+- [Round](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=clipart&foreground.clipart=access_alarm&foreground.space.trim=1&foreground.space.pad=0.4&foreColor=rgb(0%2C%200%2C%200)&backColor=rgb(63%2C%2081%2C%20181)&crop=0&backgroundShape=circle&effects=shadow&name=ic_launcher_round).
+
 
 ## Sounds
 
