@@ -67,7 +67,7 @@ class TimerFragment : Fragment() {
         private var beepCount = 3
 
         override fun onFinish() {
-            (context as MainActivity).playTone()
+            (context as MainActivity).playEnd()
 
             // reset beep count
             beepCount = 3
@@ -91,7 +91,7 @@ class TimerFragment : Fragment() {
 
             // time to beep
             if (millisUntilFinished > (beepCount - 1 * 1000) + 500 && millisUntilFinished < (beepCount * 1000)) {
-                (context as MainActivity).playBeep()
+                (context as MainActivity).playWarning()
                 beepCount -= 1
             }
         }

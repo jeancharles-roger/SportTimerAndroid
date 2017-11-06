@@ -16,14 +16,8 @@ import org.json.JSONTokener
 
 class MainActivity : AppCompatActivity() {
 
-    /** Index where to find beep id */
-    val beepIndex = 0
-
-    /** Index where to find tone id */
-    val toneIndex = 0
-
-    /** Sound ids when loaded */
-    private val soundIds = arrayOf(0, 0)
+    /** Tone sound id */
+    var toneId = -1
 
     /** List of timers */
     val timers: MutableList<TimerDescription> = ArrayList()
@@ -35,8 +29,7 @@ class MainActivity : AppCompatActivity() {
     private val mSectionsPagerAdapter: SectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, timers)
 
     private fun loadSounds() {
-        soundIds[beepIndex] = soundPool.load(this, R.raw.beep, 1)
-        soundIds[toneIndex] = soundPool.load(this, R.raw.tone, 1)
+        toneId = soundPool.load(this, R.raw.tone, 1)
     }
 
     private fun reloadTimers() {
@@ -95,12 +88,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun playBeep() {
-        soundPool.play(soundIds[beepIndex], 1F, 1F, 1, 0, 1F)
+    fun playWarning() {
+        soundPool.play(toneId, 1F, 1F, 1, 0, 1F)
     }
 
-    fun playTone() {
-        soundPool.play(soundIds[toneIndex], 1F, 1F, 1, 0, 0.8F)
+    fun playEnd() {
+        soundPool.play(toneId, 1F, 1F, 1, 0, 0.8F)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
