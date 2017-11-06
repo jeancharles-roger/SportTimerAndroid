@@ -1,6 +1,8 @@
 package fr.minibilles.sporttimer
 
 import android.content.Context
+import android.media.AudioManager
+import android.media.SoundPool
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -14,21 +16,28 @@ import org.json.JSONTokener
 
 class MainActivity : AppCompatActivity() {
 
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
+    /** Index where to find beep id */
+    val beepIndex = 0
+
+    /** Index where to find tone id */
+    val toneIndex = 0
+
+    /** Sound ids when loaded */
+    private val soundIds = arrayOf(0, 0)
 
     /** List of timers */
     val timers: MutableList<TimerDescription> = ArrayList()
 
-    // Create the adapter that will return a fragment for each of the three
-    // primary sections of the activity.
+    /** Sound pool for alarms */ @Suppress("DEPRECATION")
+    private val soundPool: SoundPool = SoundPool(1, AudioManager.STREAM_ALARM, 0)
+
+    /** Page adapter for timers */
     private val mSectionsPagerAdapter: SectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, timers)
+
+    private fun loadSounds() {
+        soundIds[beepIndex] = soundPool.load(this, R.raw.beep, 1)
+        soundIds[toneIndex] = soundPool.load(this, R.raw.tone, 1)
+    }
 
     private fun reloadTimers() {
         val preferences = getPreferences(Context.MODE_PRIVATE)
@@ -50,6 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        loadSounds()
 
         reloadTimers()
 
@@ -82,6 +93,14 @@ class MainActivity : AppCompatActivity() {
 
             notifyTimersChanged()
         }
+    }
+
+    fun playBeep() {
+        soundPool.play(soundIds[beepIndex], 1F, 1F, 1, 0, 1F)
+    }
+
+    fun playTone() {
+        soundPool.play(soundIds[toneIndex], 1F, 1F, 1, 0, 0.8F)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

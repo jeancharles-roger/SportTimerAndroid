@@ -63,7 +63,15 @@ class TimerFragment : Fragment() {
     }
 
     inner class DurationTimer(duration: Int): CountDownTimer(duration*1000L, 100) {
+
+        private var beepCount = 3
+
         override fun onFinish() {
+            (context as MainActivity).playTone()
+
+            // reset beep count
+            beepCount = 3
+
             val previousStatus = safeView.timers.getChildAt(timer.current).status
             previousStatus.setImageResource(android.R.drawable.presence_invisible)
 
@@ -80,6 +88,12 @@ class TimerFragment : Fragment() {
 
         override fun onTick(millisUntilFinished: Long) {
             (view as View).time_view.text = formatMillisecond(millisUntilFinished)
+
+            // time to beep
+            if (millisUntilFinished > (beepCount - 1 * 1000) + 500 && millisUntilFinished < (beepCount * 1000)) {
+                (context as MainActivity).playBeep()
+                beepCount -= 1
+            }
         }
 
     }
@@ -94,7 +108,6 @@ class TimerFragment : Fragment() {
 
             val status = safeView.timers.getChildAt(timer.current).status
             status.setImageResource(android.R.drawable.presence_online)
-
         }
     }
 
@@ -108,7 +121,6 @@ class TimerFragment : Fragment() {
                 val status = safeView.timers.getChildAt(i).status
                 status.setImageResource(android.R.drawable.presence_invisible)
             }
-
         }
     }
 
