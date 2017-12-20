@@ -10,9 +10,12 @@ SportTimer is available in English and French.
 
 This application is open source under the MIT license.
 
+![Screenshot 1](SportTimer1.png)
+
 ## Download
 
-The application isn´t accessible from the PlayStore. You can download it from the GitHub [Release page](https://github.com/jeancharles-roger/SportTimerAndroid/releases).
+The application isn´t accessible from the PlayStore. 
+You can download it from the GitHub [Release page](https://github.com/jeancharles-roger/SportTimerAndroid/releases).
 
 ## Security concerns
 
